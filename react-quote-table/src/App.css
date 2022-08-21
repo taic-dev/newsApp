@@ -1,0 +1,36 @@
+.main{
+    margin: 100px 0;
+}
+
+.main-wrapper{
+    display: flex;
+}
+
+.main-textarea{
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 15px;
+}
+
+.main-textarea input {
+    width: 300px;
+}
+
+.main-item__left{
+    width: 55%;
+    margin: 30px 15px;
+}
+
+.main-item__right{
+    width: 45%;
+    margin: 30px 15px;
+}
+
+.main-quote-table{
+    margin-bottom: 100px;
+}
+
+.main-button{
+    margin-top: 30px;
+    text-align: right;
+}
