@@ -1,7 +1,7 @@
-import { Button, Input, InputAdornment, Table, TableBody, TableCell, TableHead, TableRow, TextField, Toolbar, Typography, } from '@mui/material';
+import { Button, Input, InputAdornment, Table, TableBody, TableCell, TableHead, TableRow, TextField, } from '@mui/material';
 import React from 'react'
 
-const MainItemQuoteTable = ({ tableRow, addTableRow, changeTableCell, price, changePrice }) => {
+const MainItemQuoteTable = ({ allTableRow, addTableRow, changeTableCell, price, changePrice }) => {
   return (
     <div className="main-quote-table">
         <div className="main-textarea">
@@ -17,19 +17,19 @@ const MainItemQuoteTable = ({ tableRow, addTableRow, changeTableCell, price, cha
             <TableRow>
                 <TableCell>No.</TableCell>
                 <TableCell>作業内容</TableCell>
-                <TableCell>数量</TableCell>
                 <TableCell>単価</TableCell>
+                <TableCell>数量</TableCell>
                 <TableCell>金額</TableCell>
             </TableRow>
             </TableHead>
             <TableBody>
-                {tableRow.map((row,key)=>{
+                {allTableRow.map((row,key)=>{
                     return(
-                        <TableRow>
+                        <TableRow id={Object.keys(row)}>
                             <TableCell>{key+1}</TableCell>
                             <TableCell><TextField onChange={changeTableCell} id="outlined-required" label="作業内容" variant="standard" name='content' /></TableCell>
-                            <TableCell><TextField onChange={changeTableCell} id="outlined-required" label="数量" variant="standard" name='quantity' /></TableCell>
                             <TableCell><TextField onChange={changeTableCell} id="outlined-required" label="単価" variant="standard" name='unitPrice' /></TableCell>
+                            <TableCell><TextField onChange={changeTableCell} id="outlined-required" label="数量" variant="standard" name='quantity' /></TableCell>
                             <TableCell><TextField onChange={e=>{changeTableCell(e); changePrice(e);}} id="outlined-required" label="金額" variant="standard" name='price' /></TableCell>
                         </TableRow>
                     )

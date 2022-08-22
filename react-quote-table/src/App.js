@@ -8,18 +8,44 @@ import './App.css';
 
 
 function App() {
-  const [allTableRow,setAllTableRow] = useState([
-    {no: "",content: "",quantity: "",unitPrice: "",price: ""},
-  ]);
 
-  const [tableRow,setTableRow] = useState([
-    {no: "",content: "",quantity: "",unitPrice: "",price: ""}
-  ]);
+  const randomString = Math.random().toString(32).substring(2);
 
   const [price,setPrice] = useState(0);
 
+  const [tableRow,setTableRow] = useState([
+    {
+      [randomString]:{
+        content: "",
+        unitPrice: "",
+        quantity: "",
+        price: ""
+      }
+    }
+  ]);
+
+  const [allTableRow,setAllTableRow] = useState([
+    {
+      [randomString]:{
+        content: "",
+        unitPrice: "",
+        quantity: "",
+        price: ""
+      }
+    }
+  ]);
+  
   const addTableRow = () => {
-    setTableRow([...tableRow,{no: "",content: "",quantity: "",unitPrice: "",price: ""}])
+    setAllTableRow([
+      ...allTableRow,
+      {
+        [randomString]:{
+          content: "",
+          unitPrice: "",
+          quantity: "",
+          price: ""}
+        }
+      ])
   }
 
   const changePrice = e => {
@@ -27,13 +53,26 @@ function App() {
     setPrice(e.target.value);
   }
 
-  console.log(tableRow)
-
   const changeTableCell = e => {
+    const parentId = e.target.closest("tr").id;
     const {name,value} = e.target;
     console.log(name);
-    setAllTableRow({...allTableRow,[name]: value})
+    console.log(parentId);
+
+    // allTableRow.map((row)=>{
+    //   let rowObject = row[parentId];
+    //   rowObject.[name] = value
+    //   console.log(rowObject);
+    // });
+
+    console.log(allTableRow);
+    console.log(allTableRow.flat());
+
+
+    setAllTableRow([...allTableRow,{[parentId]:{[name]: value}}])
   }
+
+  console.log(allTableRow)
 
   return (
     <>
@@ -49,7 +88,13 @@ function App() {
             <MainItemLeft />
             <MainItemRight />
           </div>
-          <MainItemQuoteTable changePrice={changePrice} price={price} tableRow={tableRow} addTableRow={addTableRow} changeTableCell={changeTableCell} />
+          <MainItemQuoteTable 
+            changePrice={changePrice}
+            changeTableCell={changeTableCell}
+            addTableRow={addTableRow}
+            price={price}
+            allTableRow={allTableRow}
+          />
         </main>
       </Container>
     </>
