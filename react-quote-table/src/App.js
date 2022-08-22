@@ -13,24 +13,14 @@ function App() {
 
   const [price,setPrice] = useState(0);
 
-  const [tableRow,setTableRow] = useState([
-    {
-      [randomString]:{
-        content: "",
-        unitPrice: "",
-        quantity: "",
-        price: ""
-      }
-    }
-  ]);
-
   const [allTableRow,setAllTableRow] = useState([
     {
       [randomString]:{
         content: "",
         unitPrice: "",
         quantity: "",
-        price: ""
+        price: "",
+        deleteFlag: false
       }
     }
   ]);
@@ -43,36 +33,27 @@ function App() {
           content: "",
           unitPrice: "",
           quantity: "",
-          price: ""}
+          price: "",
+          deleteFlag: false
         }
-      ])
+        }
+      ]);
+  }
+
+  const changeTableCell = e => {
+    const parentDateId = e.target.closest("tr").dataset.id
+    const parentId = e.target.closest("tr").id;
+    const {name,value} = e.target;
+    const updateRow = allTableRow[parentDateId][parentId];
+    updateRow[name] =  value
+    // console.log(updateRow);
+    console.log(allTableRow);
   }
 
   const changePrice = e => {
     console.log(e);
     setPrice(e.target.value);
   }
-
-  const changeTableCell = e => {
-    const parentId = e.target.closest("tr").id;
-    const {name,value} = e.target;
-    console.log(name);
-    console.log(parentId);
-
-    // allTableRow.map((row)=>{
-    //   let rowObject = row[parentId];
-    //   rowObject.[name] = value
-    //   console.log(rowObject);
-    // });
-
-    console.log(allTableRow);
-    console.log(allTableRow.flat());
-
-
-    setAllTableRow([...allTableRow,{[parentId]:{[name]: value}}])
-  }
-
-  console.log(allTableRow)
 
   return (
     <>
