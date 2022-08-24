@@ -23,10 +23,11 @@ const MainItemQuoteTable = ({ allTableRow, addTableRow, changeTableCell, price, 
             </TableRow>
             </TableHead>
             <TableBody>
+                {console.log(allTableRow)}
                 {allTableRow.map((value,key)=>{
                     return(
-                        <TableRow id={Object.keys(value)} data-id={key} key={key}>
-                            <TableCell>{key+1}</TableCell>
+                        <TableRow key={value.id} id={value.id}>
+                            <TableCell>{value.id+1}</TableCell>
                             <TableCell><TextField onChange={changeTableCell} id="outlined-required" label="作業内容" variant="standard" name='content' /></TableCell>
                             <TableCell><TextField onChange={changeTableCell} id="outlined-required" label="単価" variant="standard" name='unitPrice' /></TableCell>
                             <TableCell><TextField onChange={changeTableCell} id="outlined-required" label="数量" variant="standard" name='quantity' /></TableCell>

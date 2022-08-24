@@ -3,52 +3,57 @@ import { Container } from '@mui/system';
 import MainItemLeft from './components/MainItemLeft';
 import MainItemRight from './components/MainItemRight';
 import MainItemQuoteTable from './components/MainItemQuoteTable';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import './App.css';
 
 
 function App() {
 
-  const randomString = Math.random().toString(32).substring(2);
-
   const [price,setPrice] = useState(0);
 
   const [allTableRow,setAllTableRow] = useState([
     {
-      [randomString]:{
-        content: "",
-        unitPrice: "",
-        quantity: "",
-        price: "",
-        deleteFlag: false
-      }
+      id: 0,
+      content: "",
+      unitPrice: "",
+      quantity: "",
+      price: "",
     }
   ]);
   
   const addTableRow = () => {
     setAllTableRow([
       ...allTableRow,
-      {
-        [randomString]:{
+        {
+          id: allTableRow.length,
           content: "",
           unitPrice: "",
           quantity: "",
           price: "",
-          deleteFlag: false
-        }
         }
       ]);
   }
 
   const changeTableCell = e => {
-    const parentDateId = e.target.closest("tr").dataset.id
-    const parentId = e.target.closest("tr").id;
     const {name,value} = e.target;
-    const updateRow = allTableRow[parentDateId][parentId];
-    updateRow[name] =  value
-    // console.log(updateRow);
+    const parentId = e.target.closest("tr").id;
+
+    // setAllTableRow(allTableRow[parentId][name] = value);
+
+    // allTableRow.map((row,index) => (row.id === parentId ? row[name] = value : row[name])
+    // sports.map((sport, index) => (index === 2 ? "badminton" : sport))
+
+
+    setAllTableRow(
+      allTableRow.map(row => (
+        {...allTableRow, 'id' : row.id == parentId ? row[name] = value : row[name]}
+      ))
+    );
+
     console.log(allTableRow);
   }
+
+  console.log(allTableRow);
 
   const changePrice = e => {
     console.log(e);
