@@ -37,20 +37,7 @@ function App() {
   const changeTableCell = e => {
     const {name,value} = e.target;
     const parentId = e.target.closest("tr").id;
-
-    // setAllTableRow(allTableRow[parentId][name] = value);
-
-    // allTableRow.map((row,index) => (row.id === parentId ? row[name] = value : row[name])
-    // sports.map((sport, index) => (index === 2 ? "badminton" : sport))
-
-
-    setAllTableRow(
-      allTableRow.map(row => (
-        {...allTableRow, 'id' : row.id == parentId ? row[name] = value : row[name]}
-      ))
-    );
-
-    console.log(allTableRow);
+    setAllTableRow([...allTableRow],allTableRow[parentId][name] = value);
   }
 
   console.log(allTableRow);
