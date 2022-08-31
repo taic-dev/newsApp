@@ -9,6 +9,7 @@ import './App.css';
 
 function App() {
 
+  // const [number,setNumber] = useState();
   const [totalPrice,setTotalPrice] = useState();
   const [allTableRow,setAllTableRow] = useState([
     {
@@ -19,12 +20,14 @@ function App() {
       price: 0,
     }
   ]);
+
   
-  const addTableRow = () => {
+  const addTableRow = e => {
+  
     setAllTableRow([
       ...allTableRow,
         {
-          id: allTableRow.length,
+          id: allTableRow[allTableRow.length-1].id + 1,
           content: "",
           unitPrice: 0,
           quantity: 0,
@@ -43,9 +46,23 @@ function App() {
       allTableRow[parentId].price = allTableRow[parentId].unitPrice * allTableRow[parentId].quantity
     );
     
-    setTotalPrice(allTableRow.reduce((sum, row) => {
-      return sum + row.price;
-    },0));
+    setTotalPrice(
+      allTableRow.reduce((sum, row) => {
+        return sum + row.price;
+      },0)
+    );
+  }
+
+  const deleteTableRow = e => {
+    const parentId = e.target.closest("tr").id;
+    console.log(allTableRow[parentId]);
+    setAllTableRow(
+      allTableRow.filter((row)=>(
+        row.id != parentId
+      ))
+    )
+
+    console.log(allTableRow);
   }
 
   console.log(allTableRow);
@@ -67,6 +84,7 @@ function App() {
           <MainItemQuoteTable 
             changeTableCell={changeTableCell}
             addTableRow={addTableRow}
+            deleteTableRow={deleteTableRow}
             totalPrice={totalPrice}
             allTableRow={allTableRow}
           />
