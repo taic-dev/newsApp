@@ -3,14 +3,13 @@ import { Container } from '@mui/system';
 import MainItemLeft from './components/MainItemLeft';
 import MainItemRight from './components/MainItemRight';
 import MainItemQuoteTable from './components/MainItemQuoteTable';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './App.css';
 
 
 function App() {
 
-  // const [number,setNumber] = useState();
-  const [totalPrice,setTotalPrice] = useState();
+  const [totalPrice,setTotalPrice] = useState(0);
   const [allTableRow,setAllTableRow] = useState([
     {
       id: 0,
@@ -21,7 +20,6 @@ function App() {
     }
   ]);
 
-  
   const addTableRow = e => {
   
     setAllTableRow([
@@ -45,27 +43,25 @@ function App() {
       allTableRow[parentId][name] = value,
       allTableRow[parentId].price = allTableRow[parentId].unitPrice * allTableRow[parentId].quantity
     );
-    
-    setTotalPrice(
-      allTableRow.reduce((sum, row) => {
-        return sum + row.price;
-      },0)
-    );
   }
 
   const deleteTableRow = e => {
     const parentId = e.target.closest("tr").id;
-    console.log(allTableRow[parentId]);
+
     setAllTableRow(
       allTableRow.filter((row)=>(
         row.id != parentId
       ))
     )
-
-    console.log(allTableRow);
   }
 
-  console.log(allTableRow);
+  useEffect(()=>{
+    setTotalPrice(
+      allTableRow.reduce((sum, row) => {
+        return sum + row.price;
+      },0)
+    );
+  },[allTableRow])
 
   return (
     <>
