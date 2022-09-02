@@ -3,9 +3,12 @@ import { Toolbar, Typography, Button, Box, AppBar } from '@mui/material'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import Main from './Main'
 import Pdf from './Pdf'
-import React from 'react'
+import React, { useState } from 'react'
 
 const Header = () => {
+    const [allInfo,setAllInfo] = useState([]);
+    const [totalPrice,setTotalPrice] = useState(0);
+
   return (
     <BrowserRouter>
         <Box sx={{ flexGrow: 1 }}>
@@ -23,10 +26,10 @@ const Header = () => {
 
         <Switch>
             <Route exact path="/">
-                <Main></Main>
+                <Main setAllInfo={setAllInfo} totalPrice={totalPrice} setTotalPrice={setTotalPrice}></Main>
             </Route>
             <Route exact path="/pdf">
-                <Pdf></Pdf>
+                <Pdf allInfo={allInfo} totalPrice={totalPrice}></Pdf>
             </Route>
         </Switch>
     </BrowserRouter>

@@ -1,3 +1,4 @@
+import { Document, Page, Text, View, StyleSheet, PDFViewer } from "@react-pdf/renderer";
 import { Typography, } from '@mui/material';
 import { Container } from '@mui/system';
 import MainItemLeft from './MainItemLeft';
@@ -7,9 +8,7 @@ import { useEffect, useState } from 'react';
 import '../App.css';
 
 
-function Main() {
-
-  const [totalPrice,setTotalPrice] = useState(0);
+function Main({ setAllInfo, totalPrice, setTotalPrice }) {
   const [allTableRow,setAllTableRow] = useState([
     {
       id: 0,
@@ -61,27 +60,27 @@ function Main() {
         return sum + row.price;
       },0)
     );
+
+    setAllInfo([...allTableRow])
   },[allTableRow])
 
   return (
-    <>
-      <Container>
+    <Container>
         <main className="main">
-          <Typography style={{fontSize: "25px",textAlign: "center"}} component="h2" variant="h2">お見積書</Typography>
-          <div className="main-wrapper">
+        <Typography style={{fontSize: "25px",textAlign: "center"}} component="h2" variant="h2">お見積書</Typography>
+        <div className="main-wrapper">
             <MainItemLeft />
             <MainItemRight />
-          </div>
-          <MainItemQuoteTable 
+        </div>
+        <MainItemQuoteTable 
             changeTableCell={changeTableCell}
             addTableRow={addTableRow}
             deleteTableRow={deleteTableRow}
             totalPrice={totalPrice}
             allTableRow={allTableRow}
-          />
+        />
         </main>
-      </Container>
-    </>
+    </Container>
   );
 }
 
