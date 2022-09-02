@@ -1,93 +1,12 @@
-import { Table, TableBody, TableCell, TableHead, TableRow, TextField, Toolbar, Typography, } from '@mui/material';
-import { Container } from '@mui/system';
-import MainItemLeft from './components/MainItemLeft';
-import MainItemRight from './components/MainItemRight';
-import MainItemQuoteTable from './components/MainItemQuoteTable';
-import { useCallback, useEffect, useState } from 'react';
+import Header from "./components/Header";
 import './App.css';
 
-
 function App() {
-
-  const [totalPrice,setTotalPrice] = useState(0);
-  const [allTableRow,setAllTableRow] = useState([
-    {
-      id: 0,
-      content: "",
-      unitPrice: 0,
-      quantity: 0,
-      price: 0,
-    }
-  ]);
-
-  const addTableRow = e => {
-  
-    setAllTableRow([
-      ...allTableRow,
-        {
-          id: allTableRow[allTableRow.length-1].id + 1,
-          content: "",
-          unitPrice: 0,
-          quantity: 0,
-          price: 0,
-        }
-      ]);
-  }
-
-  const changeTableCell = e => {
-    const {name,value} = e.target;
-    const parentId = e.target.closest("tr").id;
-
-    setAllTableRow(
-      [...allTableRow],
-      allTableRow[parentId][name] = value,
-      allTableRow[parentId].price = allTableRow[parentId].unitPrice * allTableRow[parentId].quantity
-    );
-  }
-
-  const deleteTableRow = e => {
-    const parentId = e.target.closest("tr").id;
-
-    setAllTableRow(
-      allTableRow.filter((row)=>(
-        row.id != parentId
-      ))
-    )
-  }
-
-  useEffect(()=>{
-    setTotalPrice(
-      allTableRow.reduce((sum, row) => {
-        return sum + row.price;
-      },0)
-    );
-  },[allTableRow])
-
   return (
     <>
-      <Toolbar component="header">
-        <Typography variant="h6">
-          お見積書 作成システム
-        </Typography>
-      </Toolbar>
-      <Container>
-        <main className="main">
-          <Typography style={{fontSize: "25px",textAlign: "center"}} component="h2" variant="h2">お見積書</Typography>
-          <div className="main-wrapper">
-            <MainItemLeft />
-            <MainItemRight />
-          </div>
-          <MainItemQuoteTable 
-            changeTableCell={changeTableCell}
-            addTableRow={addTableRow}
-            deleteTableRow={deleteTableRow}
-            totalPrice={totalPrice}
-            allTableRow={allTableRow}
-          />
-        </main>
-      </Container>
+      <Header />
     </>
-  );
+  )
 }
 
 export default App;
