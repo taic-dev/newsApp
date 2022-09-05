@@ -5,7 +5,9 @@ import TextField from '@mui/material/TextField';
 import TextFieldAddress from './TextFieldAddress';
 
 const Form = () => {
+
   const [address,setAddress] = useState("");
+  const [inputError,setInputError] = useState(false);
   const [get,setGet] = useState(null);
 
   useEffect(() => {
@@ -15,7 +17,7 @@ const Form = () => {
     })
   },[address]);
 
-  console.log(get);
+  console.log(get)
 
   return (
     <Box
@@ -26,9 +28,12 @@ const Form = () => {
         noValidate
         autoComplete="off"
     >
-        <TextFieldAddress 
+        <TextFieldAddress
           address={address} 
+          get={get}
           setAddress={setAddress}
+          inputError={inputError}
+          setInputError={setInputError}
         />
         <div style={{flexWrap: "wrap"}}>
             <TextField
