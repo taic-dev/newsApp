@@ -1,16 +1,15 @@
 import { TextField } from '@mui/material'
-import React, { useState } from 'react'
 
 const TextFieldAddress = ({ address, get, setAddress, inputError, setInputError }) => {
 
   const getAddress = e => {
     setAddress(e.target.value);
-    e.target.value.length < 7 ? setInputError(get.message) : setInputError(null);
+    e.target.value.length < 7 ? setInputError(get.message) : setInputError(false);
   }
 
   return (
     <TextField
-        id={inputError == null ? "standard-number" : "standard-error-helper-text"}
+        id="standard-number"
         label="郵便番号 (ハイフン無しで入力)"
         type="number"
         InputLabelProps={{
@@ -19,6 +18,8 @@ const TextFieldAddress = ({ address, get, setAddress, inputError, setInputError 
         helperText={inputError}
         variant="standard"
         style={{margin: "50px 8px"}}
+        color={!inputError ? "success" : "warning"}
+        error={inputError}
         onChange={getAddress}
     />
   )
