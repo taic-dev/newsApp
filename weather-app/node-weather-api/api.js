@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
+const router = express.Router();
 const port = 3001;
+const axios = require("axios");
+const { decycle, encycle } = require('json-cyclic');
 
 // jsonの受け取り
 app.use(express.json());
@@ -16,8 +19,11 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/', (req,res)=>{
-    res.send("Hello World");
+app.get('/', async (req,res)=>{
+    const URL = "https://weather.tsukumijima.net/api/forecast?city=400040"
+    await axios.get(URL).then(result=>{
+        res.json(result.data);
+    })
 });
 
 app.post('/',(req,res)=>{
