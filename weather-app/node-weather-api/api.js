@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', async (req,res)=>{
-    const URL = "https://weather.tsukumijima.net/api/forecast?city=400040"
+    const URL = "https://api.open-meteo.com/v1/forecast?latitude=33.8391&longitude=132.7655&hourly=temperature_2m,cloudcover"
     await axios.get(URL).then(result=>{
         res.json(result.data);
     })
