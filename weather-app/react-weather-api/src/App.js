@@ -5,7 +5,7 @@ import Header from './components/Header';
 const useStyles = makeStyles(() => ({
   wrapper: {
     maxWidth: "450px",
-    margin: "auto",
+    margin: "auto"
   }
 }))
 
