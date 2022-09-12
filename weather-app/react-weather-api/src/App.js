@@ -1,6 +1,8 @@
 import { makeStyles } from '@material-ui/core';
 import './App.css';
+import { Reset } from 'styled-reset'
 import Header from './components/Header';
+import Main from './components/Main';
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -14,9 +16,13 @@ function App() {
   const classes = useStyles();
 
   return (
-    <div className={classes.wrapper}>
-      <Header />
-    </div>
+    <>
+      <Reset />
+      <div className={classes.wrapper}>
+        <Header />
+        <Main />
+      </div>
+    </>
   );
 }
 
