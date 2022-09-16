@@ -6,8 +6,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 
-const Footer = () => {
-    const [buttonColor, setbuttonColor] = React.useState(0);
+const Footer = ({ buttonColor,setButtonColor }) => {
 
     return (
         <Box>
@@ -15,7 +14,7 @@ const Footer = () => {
             showLabels
             value={buttonColor}
             onChange={(event, newValue) => {
-                setbuttonColor(newValue);
+                setButtonColor(newValue);
             }}
         >
             <BottomNavigationAction label="Weather" icon={<WbSunnyIcon />} />
