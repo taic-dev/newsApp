@@ -3,10 +3,67 @@ main{
 }
 
 .temperature-main{
+  position: relative;
+  height: 35%;
+}
+
+.temperature-main__desc{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+}
+
+.temperature-main__desc p{
+  margin-bottom: 15px;
+  font-size: clamp(35px,3.5vw,20px);
+}
+
+.temperature-main__desc span{
+  font-size: 18px;
+}
+
+.temperature-main__desc h2{
+  margin-top: 30px;
+  font-size: clamp(65px,3.5vw,40px);
+}
+
+.temperature-time{
+  padding: 15px 0;
+  height: 10%;
+  border-top: solid 1px ;
+  border-bottom: solid 1px ;
+}
+
+.temperature-time__slider{
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.temperature-time__item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.temperature-week{
+  padding: 15px 0;
   height: 40%;
 }
 
+.temperature-week__list{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-.temperature-week{
-  height: 40%;
+.temperature-week__item{
+  display: flex;
+  justify-content: space-between;
+  
 }
