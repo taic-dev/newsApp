@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', async (req,res)=>{
-    const URL = "https://api.open-meteo.com/v1/forecast?latitude=35.6785&longitude=139.6823&current_weather=true&hourly=temperature_2m,weathercode&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&current_weather"
+    const URL = "https://api.open-meteo.com/v1/forecast?latitude=35.6785&longitude=139.6823&current_weather=true&hourly=temperature_2m,weathercode&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Asia%2FTokyo&current_weather"
     await axios.get(URL).then(result=>{
         res.json(result.data);
     })
