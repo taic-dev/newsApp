@@ -1,97 +1,29 @@
 import React from 'react'
 
-const TemperatureWeek = () => {
+const TemperatureWeek = ({ weatherInfo }) => {
+
+    console.log(weatherInfo);
+
   return (
     <div className="temperature-week">
         <ul className="temperature-week__list">
-        <li className="temperature-week__item">
-            <span>曜日</span>
-            <span>天気</span>
-            <div className="temperature-week__range">
-            <span>31℃</span>
-            <span>19℃</span>
-            </div>
-        </li>
-        <li className="temperature-week__item">
-            <span>曜日</span>
-            <span>天気</span>
-            <div className="temperature-week__range">
-            <span>31℃</span>
-            <span>19℃</span>
-            </div>
-        </li>
-        <li className="temperature-week__item">
-            <span>曜日</span>
-            <span>天気</span>
-            <div className="temperature-week__range">
-            <span>31℃</span>
-            <span>19℃</span>
-            </div>
-        </li>
-        <li className="temperature-week__item">
-            <span>曜日</span>
-            <span>天気</span>
-            <div className="temperature-week__range">
-            <span>31℃</span>
-            <span>19℃</span>
-            </div>
-        </li>
-        <li className="temperature-week__item">
-            <span>曜日</span>
-            <span>天気</span>
-            <div className="temperature-week__range">
-            <span>31℃</span>
-            <span>19℃</span>
-            </div>
-        </li>
-        <li className="temperature-week__item">
-            <span>曜日</span>
-            <span>天気</span>
-            <div className="temperature-week__range">
-            <span>31℃</span>
-            <span>19℃</span>
-            </div>
-        </li>
-        <li className="temperature-week__item">
-            <span>曜日</span>
-            <span>天気</span>
-            <div className="temperature-week__range">
-            <span>31℃</span>
-            <span>19℃</span>
-            </div>
-        </li>
-        <li className="temperature-week__item">
-            <span>曜日</span>
-            <span>天気</span>
-            <div className="temperature-week__range">
-            <span>31℃</span>
-            <span>19℃</span>
-            </div>
-        </li>
-        <li className="temperature-week__item">
-            <span>曜日</span>
-            <span>天気</span>
-            <div className="temperature-week__range">
-            <span>31℃</span>
-            <span>19℃</span>
-            </div>
-        </li>
-        <li className="temperature-week__item">
-            <span>曜日</span>
-            <span>天気</span>
-            <div className="temperature-week__range">
-            <span>31℃</span>
-            <span>19℃</span>
-            </div>
-        </li>
-        <li className="temperature-week__item">
-            <span>曜日</span>
-            <span>天気</span>
-            <div className="temperature-week__range">
-            <span>31℃</span>
-            <span>19℃</span>
-            </div>
-        </li>
+            {(()=>{
+                const list = [];
+                for(let i=0;i<7;i++){
+                    list.push(
+                        <li key={i} className="temperature-week__item">
+                            <span>{weatherInfo.daily.time[i].slice(-4).replace("-","/")}</span>
+                            <span>{weatherInfo.daily.weathercode[i]}</span>
+                            <div className="temperature-week__range">
+                                <span>{weatherInfo.daily.temperature_2m_max[i]}</span>
+                                <span>/</span>
+                                <span>{weatherInfo.daily.temperature_2m_min[i]}</span>
+                            </div>
+                        </li>
+                    )
+                }
+                return <>{list}</>;
+            })()}
         </ul>
     </div>
   )
