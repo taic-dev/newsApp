@@ -1,5 +1,5 @@
 main{
-  height: calc(100vw - 48px);
+  height: calc(100vh - 104px);
 }
 
 .temperature-main{
@@ -52,7 +52,8 @@ main{
 
 .temperature-week{
   padding: 15px 0;
-  height: 40%;
+  height: 47%;
+  border-bottom: solid 1px;
 }
 
 .temperature-week__list{
