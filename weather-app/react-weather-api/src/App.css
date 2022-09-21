@@ -55,7 +55,7 @@ main{
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  margin-left: 20px;
+  margin-left: 24px;
 }
 
 .temperature-week{
@@ -74,5 +74,8 @@ main{
 .temperature-week__item{
   display: flex;
   justify-content: space-between;
-  
+}
+
+.temperature-week__range{
+  width: 25%;
 }
