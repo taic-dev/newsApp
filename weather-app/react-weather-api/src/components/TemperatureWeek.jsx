@@ -7,7 +7,7 @@ const TemperatureWeek = ({ weatherInfo }) => {
   return (
     <div className="temperature-week">
         <ul className="temperature-week__list">
-            {(()=>{
+            {/* {(()=>{
                 const list = [];
                 for(let i=0;i<7;i++){
                     list.push(
@@ -23,7 +23,7 @@ const TemperatureWeek = ({ weatherInfo }) => {
                     )
                 }
                 return <>{list}</>;
-            })()}
+            })()} */}
         </ul>
     </div>
   )
