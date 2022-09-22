@@ -21,8 +21,6 @@ const TemperatureMain = ({ weatherInfo }) => {
             <span>
               {weather.name}
             </span>
-            
-
             <h2>{weatherInfo.current_weather.temperature}℃</h2>
         </div>
     </div>
