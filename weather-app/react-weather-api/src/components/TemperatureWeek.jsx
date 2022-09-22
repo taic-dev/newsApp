@@ -3,8 +3,6 @@ import { WeatherList } from './WeatherList';
 
 const TemperatureWeek = ({ weatherInfo }) => {
 
-    console.log(weatherInfo);
-
   return (
     <div className="temperature-week">
         <ul className="temperature-week__list">
