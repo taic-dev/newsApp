@@ -3,9 +3,6 @@ import { WeatherList } from './WeatherList'
 
 const TemperatureTime = ({ weatherInfo }) => {
 
-    console.log(WeatherList);
-    console.log(weatherInfo);
-
     return (
         <div className="temperature-time">
             <ul className="temperature-time__slider">
