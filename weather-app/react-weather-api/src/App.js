@@ -6,6 +6,8 @@ import Main from "./components/Main";
 import Footer from "./components/Footer";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Location from "./components/Location";
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -41,17 +43,22 @@ function App() {
     return <p>読込中</p>;
   }
 
-  console.log(weatherInfo);
-
   return (
     <>
-      <Reset />
       <div className={classes.wrapper}>
+        <Reset />
         <Header />
-
-        { weatherInfo !== null && <Main weatherInfo={weatherInfo} /> }
-
-        <Footer buttonColor={buttonColor} setButtonColor={setButtonColor} />
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/">
+              {weatherInfo !== null && <Main weatherInfo={weatherInfo} />}
+            </Route>
+            <Route path="/location">
+              <Location />
+            </Route>
+          </Switch>
+          <Footer buttonColor={buttonColor} setButtonColor={setButtonColor} />
+        </BrowserRouter>
       </div>
     </>
   );

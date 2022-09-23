@@ -79,3 +79,20 @@ main{
 .temperature-week__range{
   width: 25%;
 }
+
+
+/* Location */
+.location-main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.location-main > div{
+  width: 90%;
+}
+
+.location-main > div{
+  margin-bottom: 50px;
+}
