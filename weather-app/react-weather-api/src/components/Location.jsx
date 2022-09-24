@@ -14,11 +14,10 @@ const Location = () => {
         const prefecturesURL = "http://localhost:3001/prefectures";
         let prefecturesResponse = await axios.get(prefecturesURL);
         setPrefectures(prefecturesResponse.data.response.prefecture);
-    
+
         const cityURL = "http://localhost:3001/city";
         let cityResponse = await axios.get(cityURL);
-        setCity(cityResponse.data.response.location)
-
+        setCity(cityResponse.data.response.location);
       } catch (e) {
         console.log(e);
       }
@@ -26,7 +25,19 @@ const Location = () => {
     fetchData();
   }, []);
 
-  const changePrefectures = (e) => setSelectPrefectures(e.target.value);
+  const changePrefectures = async (e) => {
+    let prefecture = e.target.value;
+    setSelectPrefectures(prefecture);
+
+    const changePrefecturesURL = "http://localhost:3001/change-city";
+    let getCityInfo = await axios.post(changePrefecturesURL, {
+      prefecture: prefecture,
+    });
+    
+    setCity(getCityInfo.data.response.location);
+    setSelectCity(getCityInfo.data.response.location[0].city);
+  };
+
   const changeCity = (e) => setSelectCity(e.target.value);
 
   return (
