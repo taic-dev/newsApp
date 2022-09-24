@@ -12,5 +12,5 @@ export const WeatherList = (weatherCode) => {
     if(weatherCode <= 79) return { name: "雪", icon: <FontAwesomeIcon icon={faSnowflake} />, img: "img/snow.jpg"  }
     if(weatherCode <= 84) return { name: "にわか雨", icon: <FontAwesomeIcon icon={faCloudShowersWater} />, img: "img/rain.jpg"  }
     if(weatherCode <= 94) return { name: "雪・雹", icon: <FontAwesomeIcon icon={faSnowflake} />, img: "img/snow.jpg"  }
-    if(weatherCode <= 99) return { name: "雷雨", icon: <FontAwesomeIcon icon={faBolt} />, img: "img/lightning"  }
+    if(weatherCode <= 99) return { name: "雷雨", icon: <FontAwesomeIcon icon={faBolt} />, img: "img/lightning.jpg"  }
 }

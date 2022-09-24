@@ -1,21 +1,46 @@
-import { Button, MenuItem, TextField } from '@material-ui/core'
-import React from 'react'
+import { Button, MenuItem, Select, TextField } from '@material-ui/core'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 
 const Location = () => {
+
+    const [prefectures,setPrefectures] = useState(['']);
+    const [selectPrefectures,setSelectPrefectures] = useState('東京都');
+
+    useEffect(()=>{
+        const fetchData = async () => {
+            try{
+                const baseURL = "http://localhost:3001/prefectures";
+                let response = await axios.get(baseURL);
+                setPrefectures(response.data.response.prefecture);
+            }catch(e){
+                console.log(e);
+            }
+        }
+        fetchData();
+    },[]);
+
+    const changePrefectures = e => setSelectPrefectures(e.target.value);
+
   return (
     <main>
       <div className='location-main'>
-        <TextField
-            id="standard-select-currency"
-            select
-            label="都道府県"
-            helperText="都道府県を選択してください"
-            variant="standard"
-            >
-            <MenuItem>
-                テスト
-            </MenuItem>
-        </TextField>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          label="都道府県"
+          value={selectPrefectures}
+          onChange={changePrefectures}
+        >
+            {prefectures.map((prefecture,index)=>{
+                return(
+                    <MenuItem key={index} value={prefecture}>
+                        {prefecture}
+                    </MenuItem>
+                );
+            })}
+        </Select>
+
         <TextField
             id="standard-select-currency"
             select
