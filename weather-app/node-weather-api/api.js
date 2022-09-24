@@ -26,6 +26,30 @@ app.get('/', async (req,res)=>{
     })
 });
 
+app.get('/prefectures', async (req,res)=>{
+    const URL = "https://geoapi.heartrails.com/api/json?method=getPrefectures";
+    await axios.get(URL).then(result=>{
+        res.json(result.data);
+    });
+});
+
+
+app.get('/city', async (req,res)=>{
+    const URL = "http://geoapi.heartrails.com/api/json?method=getCities&prefecture=%E6%9D%B1%E4%BA%AC%E9%83%BD";
+    await axios.get(URL).then(result=>{
+        res.json(result.data);
+    });
+});
+
+app.post('/change-city', async (req,res)=>{
+    let prefecture = req.body.prefecture;
+    let URL = encodeURI(`http://geoapi.heartrails.com/api/json?method=getCities&prefecture=${prefecture}`);
+    await axios.get(URL).then(result=>{
+        res.json(result.data);
+    })
+})
+
+
 app.post('/',(req,res)=>{
     res.send("Got a POST request");
 });
