@@ -33,12 +33,23 @@ const Location = () => {
     let getCityInfo = await axios.post(changePrefecturesURL, {
       prefecture: prefecture,
     });
-    
+
     setCity(getCityInfo.data.response.location);
     setSelectCity(getCityInfo.data.response.location[0].city);
   };
 
   const changeCity = (e) => setSelectCity(e.target.value);
+
+  const settingLocation = async () => {
+    const settingLocationURL = "http://localhost:3001/setting-location";
+    const getTownInfo = await axios.post(settingLocationURL, {
+        selectPrefectures: selectPrefectures,
+    });
+
+    const getTown = getTownInfo.data.response.location.filter((townInfo,index) => townInfo.city == selectCity);
+
+    console.log(getTown);
+  };
 
   return (
     <main>
@@ -74,7 +85,9 @@ const Location = () => {
             );
           })}
         </Select>
-        <Button variant="contained">設定する</Button>
+        <Button variant="contained" onClick={settingLocation}>
+          設定する
+        </Button>
       </div>
     </main>
   );
