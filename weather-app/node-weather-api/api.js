@@ -49,6 +49,15 @@ app.post('/change-city', async (req,res)=>{
     })
 })
 
+app.post('/setting-location', async (req,res)=>{
+    let prefecture = req.body.selectPrefectures;
+    let URL = encodeURI(`http://geoapi.heartrails.com/api/json?method=getTowns&prefecture=${prefecture}`);
+    await axios.get(URL).then(result=>{
+        console.log(result);
+        res.json(result.data);
+    })
+});
+
 
 app.post('/',(req,res)=>{
     res.send("Got a POST request");
