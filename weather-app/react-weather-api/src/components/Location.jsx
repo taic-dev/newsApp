@@ -5,8 +5,10 @@ import React, { useEffect, useState } from "react";
 const Location = () => {
   const [prefectures, setPrefectures] = useState([""]);
   const [city, setCity] = useState([""]);
+  const [town, setTown] = useState(["神田多町"]);
   const [selectPrefectures, setSelectPrefectures] = useState("東京都");
   const [selectCity, setSelectCity] = useState("千代田区");
+  const [selectTown, setSelectTown] = useState("神田多町");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,18 +40,24 @@ const Location = () => {
     setSelectCity(getCityInfo.data.response.location[0].city);
   };
 
-  const changeCity = (e) => setSelectCity(e.target.value);
+  const settingLocation = async (e) => {
+    setSelectCity(e.target.value);
 
-  const settingLocation = async () => {
     const settingLocationURL = "http://localhost:3001/setting-location";
     const getTownInfo = await axios.post(settingLocationURL, {
-        selectPrefectures: selectPrefectures,
+      selectPrefectures: selectPrefectures,
     });
 
-    const getTown = getTownInfo.data.response.location.filter((townInfo,index) => townInfo.city == selectCity);
+    const getTown = getTownInfo.data.response.location.filter(
+      (townInfo, index) => townInfo.city == selectCity
+    );
 
-    console.log(getTown);
+    const townArray = getTown.map((townName) => townName.town)
+    setTown(townArray);
+    setSelectTown(townArray[0]);
   };
+
+  const settingTown = e => setSelectTown(e.target.value);
 
   return (
     <main>
@@ -75,7 +83,7 @@ const Location = () => {
           id="demo-simple-select-standard"
           label="市区町村"
           value={selectCity}
-          onChange={changeCity}
+          onChange={settingLocation}
         >
           {city.map((cityObj, index) => {
             return (
@@ -85,9 +93,24 @@ const Location = () => {
             );
           })}
         </Select>
-        <Button variant="contained" onClick={settingLocation}>
-          設定する
-        </Button>
+
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          label="町域名"
+          value={selectTown}
+          onChange={settingTown}
+        >
+          {town.map((townValue, index) => {
+            return (
+              <MenuItem key={index} value={townValue}>
+                {townValue}
+              </MenuItem>
+            );
+          })}
+        </Select>
+
+        <Button variant="contained">設定する</Button>
       </div>
     </main>
   );
