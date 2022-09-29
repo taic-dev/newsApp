@@ -9,6 +9,8 @@ const Location = () => {
   const [selectPrefectures, setSelectPrefectures] = useState("東京都");
   const [selectCity, setSelectCity] = useState("千代田区");
   const [selectTown, setSelectTown] = useState("神田多町");
+  const [X, setX] = useState("");
+  const [Y, setY] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,15 +51,38 @@ const Location = () => {
     });
 
     const getTown = getTownInfo.data.response.location.filter(
-      (townInfo, index) => townInfo.city == selectCity
+      (townInfo, index) => townInfo.city == e.target.value
     );
 
-    const townArray = getTown.map((townName) => townName.town)
-    setTown(townArray);
+    const townArray = getTown.map((townName) => townName.town);
     setSelectTown(townArray[0]);
+    setTown(townArray);
   };
 
-  const settingTown = e => setSelectTown(e.target.value);
+  const settingTown = (e) => setSelectTown(e.target.value);
+
+  const getCoordinate = async () => {
+    const settingLocationURL = "http://localhost:3001/setting-location";
+    const getTownInfo = await axios.post(settingLocationURL, {
+      selectPrefectures: selectPrefectures,
+    });
+
+    console.log(getTownInfo.data.response.location);
+    console.log(selectCity);
+    console.log(selectTown);
+
+    getTownInfo.data.response.location.map((townInfo) => {
+      if (selectCity !== townInfo.city) return;
+      if (selectTown == townInfo.town) {
+        const Latitude = townInfo.x;
+        const Longitude = townInfo.y;
+        setX(Latitude);
+        setY(Longitude);
+        console.log(Latitude);
+        console.log(Longitude);
+      }
+    });
+  };
 
   return (
     <main>
@@ -110,7 +135,9 @@ const Location = () => {
           })}
         </Select>
 
-        <Button variant="contained">設定する</Button>
+        <Button variant="contained" onClick={getCoordinate}>
+          設定する
+        </Button>
       </div>
     </main>
   );
