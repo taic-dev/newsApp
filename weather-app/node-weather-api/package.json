@@ -2,7 +2,9 @@
   "dependencies": {
     "axios": "^0.27.2",
     "express": "^4.18.1",
-    "json-cyclic": "^1.0.2"
+    "express-session": "^1.17.3",
+    "json-cyclic": "^1.0.2",
+    "store": "^2.0.12"
   },
   "name": "weather-api",
   "version": "1.0.0",
