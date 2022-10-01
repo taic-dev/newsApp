@@ -1,14 +1,15 @@
 import { Button, MenuItem, Select, TextField } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Location = () => {
   const [prefectures, setPrefectures] = useState([""]);
   const [city, setCity] = useState([""]);
-  const [town, setTown] = useState(["神田多町"]);
+  const [town, setTown] = useState([""]);
   const [selectPrefectures, setSelectPrefectures] = useState("東京都");
   const [selectCity, setSelectCity] = useState("千代田区");
-  const [selectTown, setSelectTown] = useState("神田多町");
+  const [selectTown, setSelectTown] = useState("");
   const [X, setX] = useState("");
   const [Y, setY] = useState("");
 
@@ -61,7 +62,7 @@ const Location = () => {
 
   const settingTown = (e) => setSelectTown(e.target.value);
 
-  const getCoordinate = async () => {
+  const settingCoordinate = async () => {
     const settingLocationURL = "http://localhost:3001/setting-location";
     const getTownInfo = await axios.post(settingLocationURL, {
       selectPrefectures: selectPrefectures,
@@ -71,15 +72,27 @@ const Location = () => {
     console.log(selectCity);
     console.log(selectTown);
 
-    getTownInfo.data.response.location.map((townInfo) => {
+    getTownInfo.data.response.location.map(async (townInfo) => {
       if (selectCity !== townInfo.city) return;
       if (selectTown == townInfo.town) {
-        const Latitude = townInfo.x;
-        const Longitude = townInfo.y;
-        setX(Latitude);
-        setY(Longitude);
-        console.log(Latitude);
-        console.log(Longitude);
+        console.log(townInfo.x);
+        console.log(townInfo.y);
+
+        setX(townInfo.x);
+        setY(townInfo.y);
+
+        localStorage.setItem("Latitude", townInfo.x);
+        localStorage.setItem("Longitude", townInfo.y);
+
+        // props.history.push({
+        //   pathname: `?latitude=${townInfo.x}?longitude=${townInfo.y}`
+        // })
+
+        // const changeLocationURL = "http://localhost:3001/change-location";
+        // const changeLocation = await axios.post(changeLocationURL, {
+        //   Latitude: townInfo.x,
+        //   Longitude: townInfo.y
+        // });
       }
     });
   };
@@ -135,7 +148,12 @@ const Location = () => {
           })}
         </Select>
 
-        <Button variant="contained" onClick={getCoordinate}>
+        <Button
+          variant="contained"
+          onClick={settingCoordinate}
+          component={Link}
+          to={`/?latitude=${localStorage.getItem("Latitude")}?longitude=${localStorage.getItem("Longitude")}`}
+        >
           設定する
         </Button>
       </div>
