@@ -3,12 +3,18 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const Location = ({ setX, setY }) => {
+const Location = ({
+  setX,
+  setY,
+  selectPrefectures,
+  setSelectPrefectures,
+  selectCity,
+  setSelectCity,
+}) => {
   const [prefectures, setPrefectures] = useState([""]);
   const [city, setCity] = useState([""]);
   const [town, setTown] = useState([""]);
-  const [selectPrefectures, setSelectPrefectures] = useState("東京都");
-  const [selectCity, setSelectCity] = useState("千代田区");
+
   const [selectTown, setSelectTown] = useState("");
 
   useEffect(() => {
@@ -81,7 +87,6 @@ const Location = ({ setX, setY }) => {
 
         localStorage.setItem("Latitude", townInfo.x);
         localStorage.setItem("Longitude", townInfo.y);
-
       }
     });
   };
@@ -137,10 +142,7 @@ const Location = ({ setX, setY }) => {
           })}
         </Select>
 
-        <Button
-          variant="contained"
-          onClick={settingCoordinate}
-        >
+        <Button variant="contained" onClick={settingCoordinate}>
           設定する
         </Button>
       </div>

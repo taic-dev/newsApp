@@ -23,16 +23,15 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [X, setX] = useState(139.6823);
   const [Y, setY] = useState(35.6785);
+  const [selectPrefectures, setSelectPrefectures] = useState("東京都");
+  const [selectCity, setSelectCity] = useState("千代田区");
+
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-
-        console.log(X)
-        console.log(Y)
-
         const baseURL = `http://localhost:3001?latitude=${X}&longitude=${Y}`;
         let response = await axios.get(baseURL);
         setWeatherInfo(response.data);
@@ -43,7 +42,7 @@ function App() {
     };
 
     fetchData();
-  }, [X,Y]);
+  }, [X, Y,]);
 
   if (loading) {
     return <p>読込中</p>;
@@ -57,10 +56,23 @@ function App() {
         <BrowserRouter>
           <Switch>
             <Route exact path="/">
-              {weatherInfo !== null && <Main weatherInfo={weatherInfo} />}
+              {weatherInfo !== null && (
+                <Main
+                  weatherInfo={weatherInfo}
+                  selectPrefectures={selectPrefectures}
+                  selectCity={selectCity}
+                />
+              )}
             </Route>
             <Route path="/location">
-              <Location setX={setX} setY={setY} />
+              <Location
+                setX={setX}
+                setY={setY}
+                selectPrefectures={selectPrefectures}
+                setSelectPrefectures={setSelectPrefectures}
+                selectCity={selectCity}
+                setSelectCity={setSelectCity}
+              />
             </Route>
           </Switch>
           <Footer buttonColor={buttonColor} setButtonColor={setButtonColor} />
