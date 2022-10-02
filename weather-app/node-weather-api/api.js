@@ -30,16 +30,21 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => {    
+app.get("/", (req, res) => {
+    const latitude = req.query.latitude;
+    const longitude = req.query.longitude;
 
-  const checkLocation = async (longitude = 35.6785, latitude = 139.6823) => {
+    console.log('-----------------------------------------------------------------------')
+    console.log(latitude)
+
+  const checkLocation = async (latitude = 139.6823, longitude = 35.6785) => {
     const URL = `https://api.open-meteo.com/v1/forecast?latitude=${longitude}&longitude=${latitude}&current_weather=true&hourly=temperature_2m,weathercode&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Asia%2FTokyo&current_weather`;
     await axios.get(URL).then((result) => {
       res.json(result.data);
     });
   };
 
-  checkLocation();
+  checkLocation(latitude,longitude);
 });
 
 app.get("/prefectures", async (req, res) => {
