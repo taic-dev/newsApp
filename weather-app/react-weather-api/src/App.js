@@ -21,13 +21,19 @@ function App() {
   const [weatherInfo, setWeatherInfo] = useState(null);
   const [buttonColor, setButtonColor] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [X, setX] = useState(139.6823);
+  const [Y, setY] = useState(35.6785);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const baseURL = "http://localhost:3001/";
+
+        console.log(X)
+        console.log(Y)
+
+        const baseURL = `http://localhost:3001?latitude=${X}&longitude=${Y}`;
         let response = await axios.get(baseURL);
         setWeatherInfo(response.data);
       } catch (e) {
@@ -37,7 +43,7 @@ function App() {
     };
 
     fetchData();
-  }, []);
+  }, [X,Y]);
 
   if (loading) {
     return <p>読込中</p>;
@@ -54,7 +60,7 @@ function App() {
               {weatherInfo !== null && <Main weatherInfo={weatherInfo} />}
             </Route>
             <Route path="/location">
-              <Location />
+              <Location setX={setX} setY={setY} />
             </Route>
           </Switch>
           <Footer buttonColor={buttonColor} setButtonColor={setButtonColor} />

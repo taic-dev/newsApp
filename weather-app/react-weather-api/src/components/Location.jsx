@@ -3,15 +3,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const Location = () => {
+const Location = ({ setX, setY }) => {
   const [prefectures, setPrefectures] = useState([""]);
   const [city, setCity] = useState([""]);
   const [town, setTown] = useState([""]);
   const [selectPrefectures, setSelectPrefectures] = useState("東京都");
   const [selectCity, setSelectCity] = useState("千代田区");
   const [selectTown, setSelectTown] = useState("");
-  const [X, setX] = useState("");
-  const [Y, setY] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,15 +82,6 @@ const Location = () => {
         localStorage.setItem("Latitude", townInfo.x);
         localStorage.setItem("Longitude", townInfo.y);
 
-        // props.history.push({
-        //   pathname: `?latitude=${townInfo.x}?longitude=${townInfo.y}`
-        // })
-
-        // const changeLocationURL = "http://localhost:3001/change-location";
-        // const changeLocation = await axios.post(changeLocationURL, {
-        //   Latitude: townInfo.x,
-        //   Longitude: townInfo.y
-        // });
       }
     });
   };
@@ -151,8 +140,6 @@ const Location = () => {
         <Button
           variant="contained"
           onClick={settingCoordinate}
-          component={Link}
-          to={`/?latitude=${localStorage.getItem("Latitude")}?longitude=${localStorage.getItem("Longitude")}`}
         >
           設定する
         </Button>
