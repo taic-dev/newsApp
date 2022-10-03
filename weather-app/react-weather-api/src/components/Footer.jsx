@@ -16,18 +16,13 @@ const Footer = ({ buttonColor, setButtonColor }) => {
         onChange={(event, newValue) => {
           setButtonColor(newValue);
         }}
+        style={{justifyContent: "space-around"}}
       >
         <BottomNavigationAction
           label="Weather"
           icon={<WbSunnyIcon />}
           component={Link}
           to="/"
-        />
-        <BottomNavigationAction
-          label="Favorites"
-          icon={<FavoriteIcon />}
-          component={Link}
-          to="/favorites"
         />
         <BottomNavigationAction
           label="Location"
