@@ -8,13 +8,15 @@ main{
 }
 
 .temperature-main__desc{
+  width: 65%;
+
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
   text-align: center;
 
-  padding: 10px;
+  padding: 15px 10px;
   color: #fff;
   background-color: rgba(0,0,0,0.5);
   border-radius: 5px;
@@ -22,7 +24,8 @@ main{
 
 .temperature-main__desc p{
   margin-bottom: 15px;
-  font-size: clamp(35px,3.5vw,20px);
+  font-size: clamp(25px,0.5vw,16px);
+  font-weight: bold;
 }
 
 .temperature-main__desc span{
@@ -30,7 +33,7 @@ main{
 }
 
 .temperature-main__desc h2{
-  margin-top: 30px;
+  margin-top: 15px;
   font-size: clamp(55px,3.5vw,40px);
 }
 

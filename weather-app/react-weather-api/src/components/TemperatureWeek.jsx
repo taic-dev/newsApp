@@ -12,7 +12,7 @@ const TemperatureWeek = ({ weatherInfo }) => {
                     let weather = WeatherList(weatherInfo.daily.weathercode[i]);
                     list.push(
                         <li key={i} className="temperature-week__item">
-                            <span>{weatherInfo.daily.time[i].slice(-4).replace("-","/")}</span>
+                            <span>{weatherInfo.daily.time[i].slice(-5).replace("-","/")}</span>
                             <span>{weather.icon}</span>
                             <div className="temperature-week__range">
                                 <span>{weatherInfo.daily.temperature_2m_max[i]}℃</span>

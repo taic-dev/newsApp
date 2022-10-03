@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { color } from '@mui/system';
 
-const TemperatureMain = ({ weatherInfo }) => {
+const TemperatureMain = ({ weatherInfo, topPrefecture, topCity }) => {
 
   let weather = WeatherList(weatherInfo.current_weather.weathercode);
 
@@ -17,7 +17,7 @@ const TemperatureMain = ({ weatherInfo }) => {
     <>
     <div className="temperature-main" style={BackgroundStyle} >
         <div className="temperature-main__desc">
-            <p>{weatherInfo.timezone}</p>
+            <p>{topPrefecture} / {topCity}</p>
             <span>
               {weather.name}
             </span>
