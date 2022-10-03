@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 const Location = ({
   setX,
   setY,
-  setTopPrefecutre,
+  setTopPrefecture,
   setTopCity
 }) => {
   const [prefectures, setPrefectures] = useState([""]);
@@ -29,12 +29,12 @@ const Location = ({
   }, []);
 
   const changePrefectures = async (e) => {
-    let prefecture = e.target.value;
-    setSelectPrefectures(prefecture);
+    setSelectPrefectures(e.target.value);
+    setTopPrefecture(e.target.value);
 
     const changePrefecturesURL = "http://localhost:3001/change-city";
     let getCityInfo = await axios.post(changePrefecturesURL, {
-      prefecture: prefecture,
+      prefecture: e.target.value,
     });
 
     setCity(getCityInfo.data.response.location);
@@ -84,7 +84,6 @@ const Location = ({
         setSelectCity("");
 
         // これだけ更新されない
-        setTopPrefecutre(selectPrefectures);
 
         localStorage.setItem("Latitude", townInfo.x);
         localStorage.setItem("Longitude", townInfo.y);

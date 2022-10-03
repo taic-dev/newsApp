@@ -25,6 +25,7 @@ function App() {
   const [Y, setY] = useState(35.6785);
   const [topPrefecture, setTopPrefecture] = useState("東京");
   const [topCity, setTopCity] = useState("千代田区");
+  const [ test,setTest] = useState('テスト');
 
   const [error, setError] = useState(null);
 
@@ -61,6 +62,7 @@ function App() {
                   weatherInfo={weatherInfo}
                   topPrefecture={topPrefecture}
                   topCity={topCity}
+                  test={test}
                   />
                   )}
             </Route>
@@ -70,6 +72,7 @@ function App() {
                 setY={setY}
                 setTopPrefecture={setTopPrefecture}
                 setTopCity={setTopCity}
+                setTest={setTest}
               />
             </Route>
           </Switch>
