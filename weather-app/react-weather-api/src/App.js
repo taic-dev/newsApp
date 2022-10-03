@@ -23,8 +23,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [X, setX] = useState(139.6823);
   const [Y, setY] = useState(35.6785);
-  const [selectPrefectures, setSelectPrefectures] = useState("東京都");
-  const [selectCity, setSelectCity] = useState("千代田区");
+  const [topPrefecture, setTopPrefecture] = useState("東京");
+  const [topCity, setTopCity] = useState("千代田区");
 
   const [error, setError] = useState(null);
 
@@ -59,19 +59,17 @@ function App() {
               {weatherInfo !== null && (
                 <Main
                   weatherInfo={weatherInfo}
-                  selectPrefectures={selectPrefectures}
-                  selectCity={selectCity}
-                />
-              )}
+                  topPrefecture={topPrefecture}
+                  topCity={topCity}
+                  />
+                  )}
             </Route>
             <Route path="/location">
               <Location
                 setX={setX}
                 setY={setY}
-                selectPrefectures={selectPrefectures}
-                setSelectPrefectures={setSelectPrefectures}
-                selectCity={selectCity}
-                setSelectCity={setSelectCity}
+                setTopPrefecture={setTopPrefecture}
+                setTopCity={setTopCity}
               />
             </Route>
           </Switch>

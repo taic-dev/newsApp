@@ -1,20 +1,18 @@
-import { Button, MenuItem, Select, TextField } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Button, FormControl, InputLabel, MenuItem, Select, } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Location = ({
   setX,
   setY,
-  selectPrefectures,
-  setSelectPrefectures,
-  selectCity,
-  setSelectCity,
+  setTopPrefecutre,
+  setTopCity
 }) => {
   const [prefectures, setPrefectures] = useState([""]);
   const [city, setCity] = useState([""]);
   const [town, setTown] = useState([""]);
-
+  const [selectPrefectures, setSelectPrefectures] = useState("");
+  const [selectCity, setSelectCity] = useState("");
   const [selectTown, setSelectTown] = useState("");
 
   useEffect(() => {
@@ -23,10 +21,6 @@ const Location = ({
         const prefecturesURL = "http://localhost:3001/prefectures";
         let prefecturesResponse = await axios.get(prefecturesURL);
         setPrefectures(prefecturesResponse.data.response.prefecture);
-
-        const cityURL = "http://localhost:3001/city";
-        let cityResponse = await axios.get(cityURL);
-        setCity(cityResponse.data.response.location);
       } catch (e) {
         console.log(e);
       }
@@ -44,11 +38,11 @@ const Location = ({
     });
 
     setCity(getCityInfo.data.response.location);
-    setSelectCity(getCityInfo.data.response.location[0].city);
   };
 
   const settingLocation = async (e) => {
     setSelectCity(e.target.value);
+    setTopCity(e.target.value);
 
     const settingLocationURL = "http://localhost:3001/setting-location";
     const getTownInfo = await axios.post(settingLocationURL, {
@@ -76,6 +70,8 @@ const Location = ({
     console.log(selectCity);
     console.log(selectTown);
 
+
+
     getTownInfo.data.response.location.map(async (townInfo) => {
       if (selectCity !== townInfo.city) return;
       if (selectTown == townInfo.town) {
@@ -84,6 +80,11 @@ const Location = ({
 
         setX(townInfo.x);
         setY(townInfo.y);
+        setSelectPrefectures("");
+        setSelectCity("");
+
+        // これだけ更新されない
+        setTopPrefecutre(selectPrefectures);
 
         localStorage.setItem("Latitude", townInfo.x);
         localStorage.setItem("Longitude", townInfo.y);
@@ -94,57 +95,69 @@ const Location = ({
   return (
     <main>
       <div className="location-main">
-        <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          label="都道府県"
-          value={selectPrefectures}
-          onChange={changePrefectures}
-        >
-          {prefectures.map((prefecture, index) => {
-            return (
-              <MenuItem key={index} value={prefecture}>
-                {prefecture}
-              </MenuItem>
-            );
-          })}
-        </Select>
+        <FormControl>
+          <InputLabel id="demo-simple-select-standard-label">都道府県</InputLabel>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select"
+            label="都道府県"
+            value={selectPrefectures}
+            onChange={changePrefectures}
+          >
+            {prefectures.map((prefecture, index) => {
+              return (
+                <MenuItem key={index} value={prefecture}>
+                  {prefecture}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
 
-        <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          label="市区町村"
-          value={selectCity}
-          onChange={settingLocation}
-        >
-          {city.map((cityObj, index) => {
-            return (
-              <MenuItem key={index} value={cityObj.city}>
-                {cityObj.city}
-              </MenuItem>
-            );
-          })}
-        </Select>
+        <FormControl>
+          <InputLabel id="city-select-label">市区町村</InputLabel>
+          <Select
+            labelId="city-select-label"
+            id="demo-simple-select-standard"
+            label="市区町村"
+            value={selectCity}
+            onChange={settingLocation}
+            // disabled="false"
+          >
+            {city.map((cityObj, index) => {
+              return (
+                <MenuItem key={index} value={cityObj.city}>
+                  {cityObj.city}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
 
-        <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          label="町域名"
-          value={selectTown}
-          onChange={settingTown}
-        >
-          {town.map((townValue, index) => {
-            return (
-              <MenuItem key={index} value={townValue}>
-                {townValue}
-              </MenuItem>
-            );
-          })}
-        </Select>
+        <FormControl>
+          <InputLabel id="town-select-label">町域名</InputLabel>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            label="町域名"
+            value={selectTown}
+            onChange={settingTown}
+            // disabled="false"
+          >
+            {town.map((townValue, index) => {
+              return (
+                <MenuItem key={index} value={townValue}>
+                  {townValue}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
 
-        <Button variant="contained" onClick={settingCoordinate}>
-          設定する
-        </Button>
+          <Button variant="contained" onClick={settingCoordinate}>
+            設定する
+          </Button>
+
       </div>
     </main>
   );

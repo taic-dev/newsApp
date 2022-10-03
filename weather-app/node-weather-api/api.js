@@ -31,12 +31,8 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-    const latitude = req.query.latitude;
-    const longitude = req.query.longitude;
-
-    console.log('-----------------------------------------------------------------------')
-    console.log(latitude)
-
+  const latitude = req.query.latitude;
+  const longitude = req.query.longitude;
   const checkLocation = async (latitude = 139.6823, longitude = 35.6785) => {
     const URL = `https://api.open-meteo.com/v1/forecast?latitude=${longitude}&longitude=${latitude}&current_weather=true&hourly=temperature_2m,weathercode&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Asia%2FTokyo&current_weather`;
     await axios.get(URL).then((result) => {
@@ -44,19 +40,11 @@ app.get("/", (req, res) => {
     });
   };
 
-  checkLocation(latitude,longitude);
+  checkLocation(latitude, longitude);
 });
 
 app.get("/prefectures", async (req, res) => {
   const URL = "https://geoapi.heartrails.com/api/json?method=getPrefectures";
-  await axios.get(URL).then((result) => {
-    res.json(result.data);
-  });
-});
-
-app.get("/city", async (req, res) => {
-  const URL =
-    "http://geoapi.heartrails.com/api/json?method=getCities&prefecture=%E6%9D%B1%E4%BA%AC%E9%83%BD";
   await axios.get(URL).then((result) => {
     res.json(result.data);
   });

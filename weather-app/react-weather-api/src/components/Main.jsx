@@ -3,13 +3,13 @@ import TemperatureMain from "./TemperatureMain";
 import TemperatureTime from "./TemperatureTime";
 import TemperatureWeek from "./TemperatureWeek";
 
-const Main = ({ weatherInfo, selectPrefectures, selectCity }) => {
+const Main = ({ weatherInfo, topPrefecture, topCity }) => {
   return (
     <main>
       <TemperatureMain
         weatherInfo={weatherInfo}
-        selectPrefectures={selectPrefectures}
-        selectCity={selectCity}
+        topPrefecture={topPrefecture}
+        topCity={topCity}
       />
       <TemperatureTime weatherInfo={weatherInfo} />
       <TemperatureWeek weatherInfo={weatherInfo} />
