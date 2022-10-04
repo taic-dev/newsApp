@@ -52,6 +52,10 @@ main{
   align-items: center;
 }
 
+.temperature-time__item:first-child{
+  margin-left: 0;
+}
+
 .temperature-time__item{
   height: 100%;
   display: flex;
