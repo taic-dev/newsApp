@@ -10,8 +10,7 @@ function App() {
   const [category,setCategory] = useState('Business');
 
   useEffect(()=>{
-    const url = `https://newsapi.org/v2/top-headlines?country=jp&category=${category}&` +
-                `apiKey=20f1ffd2265b43d1a87fee2cd0a8d939`;
+    const url = `https://newsapi.org/v2/top-headlines?country=jp&category=${category}&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`;
 
     let req = new Request(url);
     fetch(req)
